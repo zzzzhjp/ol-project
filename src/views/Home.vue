@@ -22,16 +22,20 @@
                 <el-button type="success" icon="EditPen">
                     <el-dropdown @command="handleToolGeometry" :teleported="false">
                         <span class="dropdown-link">
-                            {{ currentGeometry }} <el-icon class="el-icon--right"><arrow-down /></el-icon>
+                            {{ currentGeometry }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
                         </span>
                         <template #dropdown>
-                            <el-dropdow-menu>
-                                <el-dropdown-item v-for="item in GEOMETRY_TYPES" :key="item.value" :command="item.name">
+                            <el-dropdown-menu>
+                                <el-dropdown-item
+                                    v-for="item in GEOMETRY_TYPES"
+                                    :key="item.value"
+                                    :command="item.name"
+                                >
                                     {{ item.name }}
                                 </el-dropdown-item>
-                            </el-dropdow-menu>
+                            </el-dropdown-menu>
                         </template>
-                    </el-dropdown> 
+                    </el-dropdown>
                 </el-button>
             </el-button-group>
         </div>
@@ -41,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { Feature, Map, View } from 'ol';
+import { Feature, Map, MapBrowserEvent, View } from 'ol';
 import { onMounted, ref } from 'vue';
 
 import { GEOMETRY_TYPES, TDT_TOKEN, ZJS_CENTER, ZJS_CITYS, ZJS_EXTENT, ZJS_GeoJSON_URL } from '@config/index';
@@ -224,8 +228,29 @@ const handleToolGeometry = (command: string) => {
             currentGeometry.value = '绘制'
             setTimeout(()=>{
                 isDrawing.value = false
+                console.log('close drawing');
             }, 500)
         })
+    }
+}
+
+const handleClickFeatrue = ( e: MapBrowserEvent)=>{
+    if (isDrawing.value) return
+
+    const geometryFeature = map.forEachFeatureAtPixel(
+        e.pixel,
+        (feat) => {
+        return feat instanceof Feature ? feat : null
+        },
+        {
+        layerFilter: (layer) => layer === geometryLayer,
+        },
+    )
+
+    if (geometryFeature && currentGeometry.value === '清除') {
+        geometryLayer.getSource()?.removeFeature(geometryFeature)
+        currentGeometry.value = '绘制'
+        return
     }
 }
 
@@ -252,6 +277,8 @@ onMounted(()=>{
             })
         ])
     })
+
+    map.on('singleclick', handleClickFeatrue)
 })
 </script>
 
