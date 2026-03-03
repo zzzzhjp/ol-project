@@ -11,7 +11,7 @@ export const getMonitors = async () => {
 
 
 export const updateMonitor = async (monitor: Monitor) => {
-    const response = await fetch(`http://localhost:3000/monitors/${monitor.id}`, {
+    const response = await fetch(`http://localhost:3000/monitors-ol/${monitor.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
