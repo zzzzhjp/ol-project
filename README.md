@@ -1,5 +1,10 @@
-# Vue 3 + TypeScript + Vite
+### 项目难点
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+1. **空间数据可视化与交互复杂**：实现XXX省各地市GeoJSON边界与监测点的精准地图展示，支持多种空间对象（点、面、圆等）的绘制，地图下钻，编辑和拖拽，涉及坐标转换、图层管理等技术细节。
+2. **数据与地图的实时联动**：监测点属性变更、位置调整需实时同步到地图和统计图表，保证数据一致性和交互流畅性。
+3. **多维度统计分析与图表展示**：需根据监测数据动态生成多种统计图表，处理数据聚合、分类、时间序列等复杂逻辑。
+4. **大屏适配与体验优化**：大屏地图监测点热力图、覆盖面积动态涟漪动画展示,大屏采用vw展示要求高分辨率适配。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+### 技术框架
+
+Vite + Vue + TypeScript + OpenLayers + Element Plus + ECharts
