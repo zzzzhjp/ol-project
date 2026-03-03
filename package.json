@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@types/colormap": "^2.3.4",
     "@types/geojson": "^7946.0.16",
+    "colormap": "^2.3.2",
+    "dayjs": "^1.11.19",
     "echarts": "^6.0.0",
     "element-plus": "^2.13.2",
     "ol": "^10.8.0",

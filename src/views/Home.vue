@@ -176,6 +176,7 @@ import { monitorGeoJSON } from '@/utils/index';
 
 import jiance_on from '@/assets/jiance_on.png'
 import jiance_off from '@/assets/jiance_off.png'
+import router from '@/router';
 
 
 let map: Map
@@ -567,7 +568,7 @@ const handleToolGeometry = (command: string) => {
 }
 
 const handleMapScreen = () => {
-    window.open('/mapScreen', '_blank')
+    router.push({ name: 'Screen' })
 }
 
 const handleClickFeatrue = ( e: MapBrowserEvent)=>{
